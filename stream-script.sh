@@ -28,7 +28,9 @@ streaming() {
      THREADQSIZE="-thread_queue_size 1024"
      LOUNGE="http://64.71.79.181:5080/stream"
      HIPHOP="http://64.71.79.181:5234/stream"
-     CREATIVE="http://149.255.59.3:8008/stream"
+     CREATIVE="http://149.255.59.3:8008/stream" # Talk radio
+     RYNO="http://stream.rynothebearded.com:8000/music-320.mp3"
+     RADIO=$LOUNGE
      if [[ "$1" == "twitch" ]]; then
         UPSTREAM="rtmp://$SERVER.twitch.tv/app/$STREAM_KEY_TWITCH"
      elif [[ "$1" == "youtube" ]]; then
@@ -52,7 +54,7 @@ streaming() {
 
      ffmpeg \
        $THREADQSIZE -draw_mouse 0 -f "$SOURCE" -s "$INRES" -r "$FPS" -i "$X11Screen" \
-       $THREADQSIZE -re -i $LOUNGE -f flv -ac 2 -ar $AUDIO_RATE  -c:a aac\
+       $THREADQSIZE -re -i $RADIO -f flv -ac 2 -ar $AUDIO_RATE  -c:a aac\
        -vcodec libx264 -g $GOP -keyint_min $GOPMIN -b:v $CBR -minrate $CBR -maxrate $CBR -pix_fmt yuv420p\
        -s $OUTRES -preset $QUALITY -tune film -acodec libmp3lame -threads $THREADS -strict normal \
        -flags +global_header -bufsize $CBR \
