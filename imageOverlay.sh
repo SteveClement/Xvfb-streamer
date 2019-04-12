@@ -55,7 +55,8 @@ badges () {
       break
     fi
     echo "commit-activity is INVALID, retrying"
-    wget -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
+    wget -q -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
+    sleep 3
   done
 
   for badge in $(echo $BADGES); do
