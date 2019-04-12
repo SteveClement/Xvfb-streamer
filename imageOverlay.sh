@@ -24,9 +24,8 @@ moveImages () {
       fi
     done
   done
-  echo "Press enter to remove the images, or CTRL-C to exit"
-  read
-  pkill -9 fim
+  #echo "Press enter to remove the images, or CTRL-C to exit"
+  #read
   exit
 }
 
@@ -44,17 +43,31 @@ badges () {
   wget -q -O badges/issues-pr.svg https://img.shields.io/github/issues-pr/MISP/MISP.svg?style=$STYLE
   wget -q -O badges/stars.svg https://img.shields.io/github/stars/MISP/MISP.svg?style=$STYLE
   wget -q -O badges/forks.svg https://img.shields.io/github/forks/MISP/MISP.svg?style=$STYLE
-  wget -q -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
   wget -q -O badges/contributors.svg https://img.shields.io/github/contributors-anon/MISP/MISP.svg?style=$STYLE
   wget -q -O badges/last-commit.svg https://img.shields.io/github/last-commit/MISP/MISP.svg?style=$STYLE
   wget -q -O badges/license.svg https://img.shields.io/github/license/MISP/MISP.svg?style=$STYLE
+
+  wget -q -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
+  # For a bizarre reason commit-activity is sometimes invalid, this catches that and re-tries until good.
+  while true; do
+    flag=$(cat badges/commit-activity.svg| grep INVALID; echo $?)
+    if [[ "$flag" == "1" ]]; then
+      break
+    fi
+    echo "commit-activity is INVALID, retrying"
+    wget -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
+  done
+
   for badge in $(echo $BADGES); do
     convert badges/$badge.svg badges/$badge.jpg
   done
 }
 
-[[ $(pgrep fim) ]] && moveImages
+echo "Generating badges and displaying them with fim"
 
+##[[ $(pgrep fim) ]] && moveImages
+
+pkill -9 fim
 badges
 fim -q --autowindow img/misp-logo.jpg &
 for badge in $(echo $BADGES); do

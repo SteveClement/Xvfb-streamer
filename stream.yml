@@ -9,6 +9,6 @@ windows:
         - pane_with_multiple_commands:
           - Xvfb :99 -ac -nocursor -screen 0 1280x720x24 -nolisten tcp &
           - sleep 3; export DISPLAY=:99 ; xterm -geometry 1280x56+0+0  -e "tmux at -t misp-packer"
-        - ./imageOverlay.sh ; while inotifywait -e close_write /tmp/misp-latest.sha; do ./imageOverlay.sh; done
+        - ./imageOverlay.sh ; while inotifywait -e create ~/misp-packer ; do ./imageOverlay.sh; sleep 3200; done
         - ./stream-script.sh twitch
         - ./stream-script.sh youtube
