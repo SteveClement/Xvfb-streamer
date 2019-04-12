@@ -5,7 +5,7 @@ This gives you an "easy" way to stream an Xorg session to either Twitch or YouTu
 ## Requirements
 
 ```bash
-sudo apt install tmuxinator xdotool wmctrl imagemagick inotify-tools
+sudo apt install tmuxinator xdotool wmctrl imagemagick inotify-tools httpie
 ```
 
 ## Layout
