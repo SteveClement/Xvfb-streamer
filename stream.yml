@@ -1,0 +1,14 @@
+name: stream
+root: 
+
+windows:
+  - stream:
+      layout: ea0f,120x30,0,0[120x15,0,0{60x15,0,0,1,59x15,61,0,4},120x7,0,16,2,120x6,0,24,3]
+
+      panes:
+        - pane_with_multiple_commands:
+          - Xvfb :99 -ac -nocursor -screen 0 1280x720x24 -nolisten tcp &
+          - sleep 3; export DISPLAY=:99 ; xterm -geometry 1280x56+0+0  -e "tmux at -t misp-packer"
+        - ./imageOverlay.sh ; while inotifywait -e close_write /tmp/misp-latest.sha; do ./imageOverlay.sh; done
+        - ./stream-script.sh twitch
+        - ./stream-script.sh youtube
