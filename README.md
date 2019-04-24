@@ -5,7 +5,7 @@ This gives you an "easy" way to stream an Xorg session to either Twitch or YouTu
 ## Requirements
 
 ```bash
-sudo apt install tmuxinator xdotool wmctrl imagemagick inotify-tools httpie
+sudo apt install tmuxinator xdotool wmctrl imagemagick inotify-tools httpie xosd-bin
 ```
 
 ## Layout
@@ -25,6 +25,8 @@ mkdir -p ~/.tmuxinator
 cp stream.yml ~/.tmuxinator
 mux s stream
 ```
+
+[ImageMagick Generate Text Images](http://www.imagemagick.org/Usage/text/)
 
 [ponysay](https://github.com/erkin/ponysay) [Debian Package](http://www.vcheng.org/ponysay/)
 
