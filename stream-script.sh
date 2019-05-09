@@ -30,7 +30,7 @@ streaming() {
      HIPHOP="http://64.71.79.181:5234/stream"
      CREATIVE="http://149.255.59.3:8008/stream" # Talk radio
      RYNO="http://stream.rynothebearded.com:8000/music-320.mp3"
-     RADIO=$LOUNGE
+     RADIO=$CREATIVE
      if [[ "$1" == "twitch" ]]; then
         UPSTREAM="rtmp://$SERVER.twitch.tv/app/$STREAM_KEY_TWITCH"
      elif [[ "$1" == "youtube" ]]; then
