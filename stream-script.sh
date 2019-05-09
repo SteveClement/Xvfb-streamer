@@ -28,9 +28,10 @@ streaming() {
      THREADQSIZE="-thread_queue_size 1024"
      LOUNGE="http://64.71.79.181:5080/stream"
      HIPHOP="http://64.71.79.181:5234/stream"
-     CREATIVE="http://149.255.59.3:8008/stream" # Talk radio
+     BEYOND="http://149.255.59.3:8008/stream" # Talk radio
      RYNO="http://stream.rynothebearded.com:8000/music-320.mp3"
-     RADIO=$CREATIVE
+     RADIO100k7="http://100komma7.cast.addradio.de/100komma7/live/mp3/128/stream.mp3"
+     RADIO=$BEYOND
      if [[ "$1" == "twitch" ]]; then
         UPSTREAM="rtmp://$SERVER.twitch.tv/app/$STREAM_KEY_TWITCH"
      elif [[ "$1" == "youtube" ]]; then
