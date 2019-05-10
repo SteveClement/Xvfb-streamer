@@ -49,12 +49,14 @@ badges () {
 
   wget -q -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
   # For a bizarre reason commit-activity is sometimes invalid, this catches that and re-tries until good.
+  count=0
   while true; do
+    count=$[$count+1]
     flag=$(cat badges/commit-activity.svg| grep INVALID; echo $?)
     if [[ "$flag" == "1" ]]; then
       break
     fi
-    echo "commit-activity is INVALID, retrying"
+    echo "commit-activity is INVALID, retry #${count}"
     wget -q -O badges/commit-activity.svg https://img.shields.io/github/commit-activity/w/MISP/MISP.svg?style=$STYLE
     sleep 3
   done
