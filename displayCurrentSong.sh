@@ -4,9 +4,15 @@
 
 RADIO=$(cat stream-script.sh |grep RADIO= |cut -f 2 -d\$)
 
+if [[ "$RADIO" == "HIPHOP" ]]; then
+  # Fetch song for https://www.radio35.cloud/
+  HIPHOP="http://64.71.79.181:5234/stream"
+  ffprobe -v quiet -print_format json -show_format -show_streams $HIPHOP |jq -r '.format | .tags| .StreamTitle' > /tmp/current.song
+fi
+
 if [[ "$RADIO" == "LOUNGE" ]]; then
   # Fetch song for Milano Lounge
-  LOUNGE=http://64.71.79.181:5080/stream
+  LOUNGE="http://64.71.79.181:5080/stream"
   ffprobe -v quiet -print_format json -show_format -show_streams $LOUNGE |jq -r '.format | .tags| .StreamTitle' > /tmp/current.song
 fi
 
