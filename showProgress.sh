@@ -16,12 +16,20 @@ showProgress () {
 fetchProgress () {
   portOpen=$(nc -z localhost 2222; echo $?)
   if [[ "$portOpen" == "0" ]]; then
-    sshpass -p "Password1234" scp -q -P 2222 -o 'GlobalKnownHostsFile=/dev/null' -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no' misp@localhost:/tmp/INSTALL.stat /tmp/
+    (sshpass -p "Password1234" scp -q -P 2222 -o 'GlobalKnownHostsFile=/dev/null' -o 'UserKnownHostsFile=/dev/null' -o 'StrictHostKeyChecking=no' misp@localhost:/tmp/INSTALL.stat /tmp/) || exit
     if [[ "$?" == "0" ]]; then
       showProgress
     fi
+  else
+    sleep $DELAY
   fi
 }
 
 showBuildTime &
-fetchProgress
+
+if [[ "$(cat /tmp/INSTALL.stat|grep progress= |cut -f2 -d=)" == "100" ]]; then
+  # Add counter, if>30 remove stat
+  showProgress
+else
+  fetchProgress
+fi
